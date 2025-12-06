@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>PHISHING WEBSITE DETECTION</title>
+
+  <!-- CSS Files -->
+  <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body style="background-image: url(/static/img/background.png); overflow-y: auto;"> <!-- Ensure overflow-y on body -->
+
+  <header style="color: white;" id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo"><a href="/">PHISHING WEBSITE DETECTION</a></h1>
+      <a href="#" class="logo"><img src="static/img/logo.png" alt="" class="img-fluid"></a>
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li style="margin-left: 300px;"><a href="/home">Home</a></li>
+          <li class="active"><a href="/purchase">Purchase</a></li>
+          <li><a href="/prediction">Prediction</a></li>
+          <li><a href="/review">Review</a></li>
+          <li><a href="/">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero" style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-item active" style="background-image: url(static/img/slide/2.jpg)">
+            <div class="container-fluid bg-registration py-5">
+                <div class="row justify-content-center" style="margin-top: 50px;">
+                    
+                  <div class="col-4">
+                    <div class="card border-0" style="margin-top: 70px;">
+                        <div class="card-header bg-primary text-center p-4">
+                            <h1 class="text-white m-0">Pakage 1</h1>
+                        </div>
+
+                        <div class="card-body rounded-bottom bg-white p-5">
+                          <p style="color: black;">Pakage: 1</p>
+                          <p style="color: black;">Cost: $ 100</p>
+                          <p style="color: black;">Attempts: 10 attempts</p>
+
+                          <button type="button" class="btn btn-primary btn-block py-3" data-toggle="modal" data-target="#exampleModal1">
+                            Purchase
+                          </button>
+                        </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-4">
+                    <div class="card border-0" style="margin-top: 70px;">
+                        <div class="card-header bg-primary text-center p-4">
+                            <h1 class="text-white m-0">Pakage 2</h1>
+                        </div>
+
+                        <div class="card-body rounded-bottom bg-white p-5">
+                          <p style="color: black;">Pakage: 2</p>
+                          <p style="color: black;">Cost: $ 200</p>
+                          <p style="color: black;">Attempts: 50 attempts</p>
+
+                          <button type="button" class="btn btn-primary btn-block py-3" data-toggle="modal" data-target="#exampleModal2">
+                            Purchase
+                          </button>
+                        </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-4">
+                    <div class="card border-0" style="margin-top: 70px;">
+                        <div class="card-header bg-primary text-center p-4">
+                            <h1 class="text-white m-0">Pakage 3</h1>
+                        </div>
+
+                        <div class="card-body rounded-bottom bg-white p-5">
+                          <p style="color: black;">Pakage: 3</p>
+                          <p style="color: black;">Cost: $ 300</p>
+                          <p style="color: black;">Attempts: 100 attempts</p>
+
+                          <button type="button" class="btn btn-primary btn-block py-3" data-toggle="modal" data-target="#exampleModal3">
+                            Purchase
+                          </button>
+                        </div>
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Payment for Package 1</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-10">
+              <form action="{{ url_for('purchase') }}" method="post" onsubmit="return validateForm()">
+
+                <div class="form-group">
+                  <input type="text" class="form-control p-4" name="cardholder_name" placeholder="Cardholder Name" required pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+                </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control p-4" name="card_number" placeholder="Card Number" required pattern="\d{16}" title="Must be 16 digits">
+                </div>
+
+                <div class="form-group">
+                  <input type="text" min="3" max="4" class="form-control p-4" name="cvv" placeholder="CVV" required pattern="\d{3,4}" title="Must be 3 to 4 digits">
+                </div>
+
+                <div class="form-group">
+                  <label for="expiry_year">Expiry Year:</label>
+                  <select id="expiry_year" class="form-control p-4" name="expiry_year" required>
+                    <option value="">Select Year</option>
+                    <script>
+                      for (let year = 2024; year <= 2050; year++) {
+                        document.write(`<option value="${year}">${year}</option>`);
+                      }
+                    </script>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="expiry_month">Expiry Month:</label>
+                  <select id="expiry_month" class="form-control p-4" name="expiry_month" required disabled>
+                    <option value="">Select Month</option>
+                  </select>
+                </div>
+
+                <input type="hidden" name="package" value="package_1">
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success">Purchase</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Payment for Package 2</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-10">
+              <form action="{{ url_for('purchase') }}" method="post" onsubmit="return validateForm()">
+
+                <div class="form-group">
+                  <input type="text" class="form-control p-4" name="cardholder_name" placeholder="Cardholder Name" required pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+                </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control p-4" name="card_number" placeholder="Card Number" required pattern="\d{16}" title="Must be 16 digits">
+                </div>
+
+                <div class="form-group">
+                  <input type="text" min="3" max="4" class="form-control p-4" name="cvv" placeholder="CVV" required pattern="\d{3,4}" title="Must be 3 to 4 digits">
+                </div>
+
+                <div class="form-group">
+                  <label for="expiry_year">Expiry Year:</label>
+                  <select id="expiry_year" class="form-control p-4" name="expiry_year" required>
+                    <option value="">Select Year</option>
+                    <script>
+                      for (let year = 2024; year <= 2050; year++) {
+                        document.write(`<option value="${year}">${year}</option>`);
+                      }
+                    </script>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="expiry_month">Expiry Month:</label>
+                  <select id="expiry_month" class="form-control p-4" name="expiry_month" required disabled>
+                    <option value="">Select Month</option>
+                  </select>
+                </div>
+
+                <input type="hidden" name="package" value="package_2">
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success">Purchase</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel3">Payment for Package 3</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-10">
+              <form action="{{ url_for('purchase') }}" method="post" onsubmit="return validateForm()">
+
+                <div class="form-group">
+                  <input type="text" class="form-control p-4" name="cardholder_name" placeholder="Cardholder Name" required pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+                </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control p-4" name="card_number" placeholder="Card Number" required pattern="\d{16}" title="Must be 16 digits">
+                </div>
+
+                <div class="form-group">
+                  <input type="text" min="3" max="4" class="form-control p-4" name="cvv" placeholder="CVV" required pattern="\d{3,4}" title="Must be 3 to 4 digits">
+                </div>
+
+                <div class="form-group">
+                  <label for="expiry_year">Expiry Year:</label>
+                  <select id="expiry_year" class="form-control p-4" name="expiry_year" required>
+                    <option value="">Select Year</option>
+                    <script>
+                      for (let year = 2024; year <= 2050; year++) {
+                        document.write(`<option value="${year}">${year}</option>`);
+                      }
+                    </script>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="expiry_month">Expiry Month:</label>
+                  <select id="expiry_month" class="form-control p-4" name="expiry_month" required disabled>
+                    <option value="">Select Month</option>
+                  </select>
+                </div>
+
+                <input type="hidden" name="package" value="package_3">
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success">Purchase</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Message Alert (if any) -->
+  {% if message %}
+    <script>
+      alert("{{message}}");
+    </script>
+  {% endif %}
+
+  <script>
+    // Function to handle expiry month selection for each form
+    function handleExpiryMonthChange(expiryYearSelect, expiryMonthSelect) {
+      const selectedYear = expiryYearSelect.value;
+      
+      // Clear existing options
+      expiryMonthSelect.innerHTML = '<option value="">Select Month</option>';
+      
+      // Enable month select and add options based on selected year
+      if (selectedYear) {
+          expiryMonthSelect.disabled = false;
+          const startMonth = selectedYear == 2024 ? 10 : 1; // October for 2024, January for others
+          for (let month = startMonth; month <= 12; month++) {
+              expiryMonthSelect.innerHTML += `<option value="${month}">${month.toString().padStart(2, '0')}</option>`;
+          }
+      } else {
+          expiryMonthSelect.disabled = true; // Disable if no year selected
+      }
+    }
+  
+    // Apply the function to all forms with expiry year and month selects
+    document.querySelectorAll('select[name="expiry_year"]').forEach(function(expiryYearSelect) {
+      const form = expiryYearSelect.closest('form');  // Find the closest form for the selected year
+      const expiryMonthSelect = form.querySelector('select[name="expiry_month"]');  // Get the related expiry month select
+  
+      // Add event listener for each expiry year dropdown
+      expiryYearSelect.addEventListener("change", function() {
+        handleExpiryMonthChange(expiryYearSelect, expiryMonthSelect);
+      });
+    });
+  
+    // Add form submission validation for all forms
+    document.querySelectorAll('form').forEach(function(form) {
+      form.addEventListener("submit", function(event) {
+        const year = form.querySelector('select[name="expiry_year"]').value;
+        const month = form.querySelector('select[name="expiry_month"]').value;
+    
+        if (!year || !month) {
+            alert("Please select both expiry year and month.");
+            event.preventDefault(); // Prevent form submission
+        }
+      });
+    });
+  </script>
+  
+    
+    
+
+  <!-- JavaScript Files -->
+  <script src="static/vendor/jquery/jquery.min.js"></script>
+  <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>PHISHING WEBSITE DETECTION</title>
+
+  <!-- CSS Files -->
+  <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+
+  <style>
+    .star-rating {
+        direction: rtl;
+        display: inline-block;
+    }
+
+    .star {
+        font-size: 30px;
+        color: lightgray;
+        cursor: pointer;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    input[type="radio"]:checked ~ .star {
+        color: gold;
+    }
+
+    input[type="radio"]:hover ~ .star {
+        color: gold;
+    }
+
+    input[type="radio"]:checked + .star {
+        color: gold;
+    }
+
+    input[type="radio"]:hover + .star {
+        color: gold;
+    }
+  </style>
+</head>
+
+<body style="background-image: url(/static/img/background.png); overflow-y: auto;"> <!-- Ensure overflow-y on body -->
+
+  <header style="color: white;" id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo"><a href="/">PHISHING WEBSITE DETECTION</a></h1>
+      <a href="#" class="logo"><img src="static/img/logo.png" alt="" class="img-fluid"></a>
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li style="margin-left: 300px;"><a href="/home">Home</a></li>
+          <li><a href="/purchase">Purchase</a></li>
+          <li><a href="/prediction">Prediction</a></li>
+          <li class="active"><a href="/review">Review</a></li>
+          <li><a href="/">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero" style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-item active" style="background-image: url(static/img/slide/2.jpg)">
+            <div class="container-fluid bg-registration py-5">
+                <div class="row justify-content-center" style="margin-top: 100px;">
+                    <div class="col-lg-5">
+                        <div class="card border-0" style="margin-top: 70px;">
+                            <div class="card-header bg-primary text-center p-4">
+                                <h1 class="text-white m-0">Review</h1>
+                            </div>
+                            
+                            <div class="card-body rounded-bottom bg-white p-5">
+                                <form action="{{url_for('review')}}" method="post">
+
+                                    <center>
+                                      <h6 style="color: black;">Give Ratings here</h6>
+                                      <div class="star-rating">
+                                        <input type="radio" id="star-5" name="rating" value="5" required>
+                                        <label for="star-5" class="star">&#9733;</label>
+                                        <input type="radio" id="star-4" name="rating" value="4" required>
+                                        <label for="star-4" class="star">&#9733;</label>
+                                        <input type="radio" id="star-3" name="rating" value="3" required>
+                                        <label for="star-3" class="star">&#9733;</label>
+                                        <input type="radio" id="star-2" name="rating" value="2" required>
+                                        <label for="star-2" class="star">&#9733;</label>
+                                        <input type="radio" id="star-1" name="rating" value="1" required checked>
+                                        <label for="star-1" class="star">&#9733;</label>
+                                      </div><br><br>
+                                    </center>
+                                    
+
+                                    <div class="form-group">
+                                      <textarea name="feedback" class="form-control p-4" placeholder="Give your feedback here!" required="required"></textarea>
+                                    </div>
+
+                                    <div>
+                                        <button class="btn btn-primary btn-block py-3" type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  
+
+  <!-- Message Alert (if any) -->
+  {% if message %}
+    <script>
+      alert("{{message}}");
+    </script>
+  {% endif %}
+
+    <script>
+      document.getElementById('rating-form').addEventListener('submit', function(event) {
+          const ratingValue = document.querySelector('input[name="rating"]:checked');
+          
+          if (!ratingValue) {
+              alert('Please select a rating!');
+              event.preventDefault(); // Prevent form submission
+          } else {
+              alert(`You rated this ${ratingValue.value} stars!`);
+          }
+      });
+    </script>
+
+
+  <!-- JavaScript Files -->
+  <script src="static/vendor/jquery/jquery.min.js"></script>
+  <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

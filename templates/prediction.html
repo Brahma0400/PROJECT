@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>PHISHING WEBSITE DETECTION</title>
+
+  <!-- CSS Files -->
+  <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body style="background-image: url(/static/img/background.png); overflow-y: auto;"> <!-- Ensure overflow-y on body -->
+
+  <header style="color: white;" id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo"><a href="/">PHISHING WEBSITE DETECTION</a></h1>
+      <a href="#" class="logo"><img src="static/img/logo.png" alt="" class="img-fluid"></a>
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li style="margin-left: 300px;"><a href="/home">Home</a></li>
+          <li><a href="/purchase">Purchase</a></li>
+          <li class="active"><a href="/prediction">Prediction</a></li>
+          <li><a href="/review">Review</a></li>
+          <li><a href="/">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero" style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-item active" style="background-image: url(static/img/slide/2.jpg)">
+            <div class="container-fluid bg-registration py-5">
+                <div class="row justify-content-center" style="margin-top: 100px;">
+                    <div class="col-lg-5">
+                        <div class="card border-0" style="margin-top: 70px;">
+                            <div class="card-header bg-primary text-center p-4">
+                                <h1 class="text-white m-0">Prediction</h1>
+                            </div>
+
+                            {% if prediction %}
+                              <center>
+                                <h4 style="color: green;"><br>It's a {{prediction}}</h4>
+                              </center>
+                            {% endif %}
+                            
+                            <div class="card-body rounded-bottom bg-white p-5">
+                                <form action="{{url_for('prediction')}}" method="post">
+
+                                    <div class="form-group">
+                                      <input type="text" name="url" class="form-control p-4" placeholder="Enter URL" required="required" />
+                                    </div>
+
+                                    <div>
+                                        <button class="btn btn-primary btn-block py-3" type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  
+
+  <!-- Message Alert (if any) -->
+  {% if message %}
+    <script>
+      alert("{{message}}");
+    </script>
+  {% endif %}
+
+  <!-- JavaScript Files -->
+  <script src="static/vendor/jquery/jquery.min.js"></script>
+  <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
